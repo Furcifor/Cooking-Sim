@@ -1,5 +1,9 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+
 import main.display.Display;
 
 public class Game implements Runnable {
@@ -10,6 +14,9 @@ public class Game implements Runnable {
 	
 	private boolean  running = false;
 	private Thread thread;
+	
+	private BufferStrategy bs;
+	private Graphics g;
 	
 	public Game(String title, int width, int height) {
 		
@@ -24,6 +31,31 @@ public class Game implements Runnable {
 	}
 	
 	private void tick() {
+		
+		bs = display.getCanvas().getBufferStrategy();
+		if(bs == null) {
+			display.getCanvas().createBufferStrategy(3);
+			return;
+		}
+		g = bs.getDrawGraphics();
+		
+		//clear screen
+		g.clearRect(0, 0, width, height);
+		
+		//draw here
+		
+		g.setColor(Color.red);
+		g.fillRect(100, 100, 100, 100);
+		g.setColor(Color.green);
+		g.fillRect(150, 150, 100, 100);
+		g.setColor(Color.blue);
+		g.fillRect(200, 200, 100, 100);
+		
+		
+		//end drawing
+		
+		bs.show();
+		g.dispose();
 		
 	}
 	

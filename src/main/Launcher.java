@@ -4,7 +4,8 @@ public class Launcher {
 	
 	public static void main(String[] args) {
 		
-		new Game("Cooking Simulator!", 500, 500);
+		Game game = new Game("Cooking Simulator!", 500, 500);
+		game.start();
 		
 	}
 	
