@@ -2,11 +2,9 @@ package main;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import main.display.Display;
-import main.gfx.ImageLoader;
-import main.gfx.SpriteSheet;
+import main.gfx.Assets;
 
 public class Game implements Runnable {
 
@@ -20,9 +18,6 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 
-	private BufferedImage test;
-	private SpriteSheet sheet;
-
 	public Game(String title, int width, int height) {
 
 		this.width = width;
@@ -33,12 +28,11 @@ public class Game implements Runnable {
 
 	private void init() {
 		display = new Display(title, width, height);
-		test = ImageLoader.loadImage("/textures/Gamertag.jpg");
-		sheet = new SpriteSheet(test);
+		Assets.init();
 	}
 
 	private void tick() {
-
+		
 	}
 
 	private void render() {
@@ -54,9 +48,9 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height);
 
 		// draw here
-		
-		g.drawImage(sheet.crop(50, 50, 50, 50), 5, 5, null);
 
+		g.drawImage(Assets.tile, 10, 10, null);
+		
 		// end drawing
 
 		bs.show();
