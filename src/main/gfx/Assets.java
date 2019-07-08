@@ -10,7 +10,7 @@ public class Assets {
 	
 	public static void init() {
 		
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/Gamertag.png"));
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/Gamertag.jpg"));
 		
 		player = sheet.crop(0, 0, width, height);
 		tile = sheet.crop(width, 0, width, height);
