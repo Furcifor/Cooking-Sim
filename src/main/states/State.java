@@ -2,6 +2,8 @@ package main.states;
 
 import java.awt.Graphics;
 
+import main.Game;
+
 public abstract class State {
 	
 	//store current state
@@ -16,6 +18,12 @@ public abstract class State {
 	}
 	
 	//Class
+	protected Game game;
+	
+	public State(Game game) {
+		this.game = game;
+	}
+	
 	public abstract void tick();
 	
 	public abstract void render(Graphics g);

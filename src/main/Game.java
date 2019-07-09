@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import main.display.Display;
 import main.gfx.Assets;
+import main.input.KeyManager;
 import main.states.GameState;
 import main.states.MenuState;
 import main.states.SettingsState;
@@ -26,26 +27,33 @@ public class Game implements Runnable {
 	private State gameState;
 	private State menuState;
 	private State settingsState;
+	
+	// input
+	private KeyManager keyManager;
 
 	public Game(String title, int width, int height) {
 
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		keyManager = new KeyManager();
 
 	}
 
 	private void init() {
 		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
-		gameState = new GameState();
-		menuState = new MenuState();
-		settingsState = new SettingsState();
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
+		settingsState = new SettingsState(this);
 		State.setState(gameState);
 	}
 
 	private void tick() {
+		keyManager.tick();
+		
 		if(State.getState() != null) {
 			State.getState().tick();
 		}
@@ -116,6 +124,10 @@ public class Game implements Runnable {
 
 		stop();
 
+	}
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
 	}
 
 	public synchronized void start() {
