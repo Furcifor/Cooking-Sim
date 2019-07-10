@@ -3,14 +3,15 @@ package main.entities.creatures;
 import main.Game;
 import main.Handler;
 import main.entities.Entity;
+import main.tiles.Tile;
 
 public abstract class Creature extends Entity {
-	
+
 	public static final int DEFAULT_HEALTH = 10;
 	public static final float DEFAULT_SPEED = 3.0f;
 	public static final int DEFAULT_CREATURE_WIDTH = 32;
 	public static final int DEAFULT_CREATURE_HEIGHT = 32;
-	
+
 	protected int health;
 	protected float speed;
 	protected float xMove, yMove;
@@ -22,12 +23,58 @@ public abstract class Creature extends Entity {
 		xMove = 0;
 		yMove = 0;
 	}
-	
+
 	public void move() {
-		x += xMove;
-		y += yMove;
+		moveX();
+		moveY();
 	}
-	
+
+	public void moveX() {
+		// Right movement
+		if (xMove > 0) {
+			int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
+
+			if (!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILE_HEIGHT)
+					&& !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+				x += xMove;
+			}
+		}
+		// Left movement
+		else if (xMove < 0) {
+			int tx = (int) (x + xMove + bounds.x) / Tile.TILE_WIDTH;
+
+			if (!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILE_HEIGHT)
+					&& !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+				x += xMove;
+			}
+		}
+	}
+
+	public void moveY() {
+		// Up
+		if (yMove < 0) {
+			int ty = (int) (y + yMove + bounds.y) / Tile.TILE_HEIGHT;
+
+			if (!collisionWithTile(ty, (int) (x + bounds.x) / Tile.TILE_WIDTH)
+					&& !collisionWithTile(ty, (int) (x + bounds.x + bounds.width) / Tile.TILE_HEIGHT)) {
+				y += yMove;
+			}
+		}
+		// Down
+		else if (yMove > 0) {
+			int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILE_HEIGHT;
+
+			if (!collisionWithTile(ty, (int) (x + bounds.x) / Tile.TILE_WIDTH)
+					&& !collisionWithTile(ty, (int) (x + bounds.x + bounds.width) / Tile.TILE_HEIGHT)) {
+				y += yMove;
+			}
+		}
+	}
+
+	protected boolean collisionWithTile(int x, int y) {
+		return handler.getWorld().getTile(x, y).isSolid();
+	}
+
 	// getters and setters
 
 	public float getxMove() {
