@@ -4,16 +4,17 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 	
-	private static final int width = 32, height = 32;
+	private static final int width = 128, height = 128;
 	
-	public static BufferedImage player, tile;
+	public static BufferedImage floor, bench, player;
 	
 	public static void init() {
 		
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/Gamertag.jpg"));
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/SpriteSheet.png"));
 		
-		player = sheet.crop(0, 0, width, height);
-		tile = sheet.crop(width, 0, width, height);
+		floor = sheet.crop(0, 0, width, height);
+		bench = sheet.crop(width, 0, width, height);
+		player = sheet.crop(width * 2, 0, width, height);
 		//other assets here
 	}
 
