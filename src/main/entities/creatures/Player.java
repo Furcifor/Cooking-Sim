@@ -1,9 +1,7 @@
 package main.entities.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-import main.Game;
 import main.Handler;
 import main.gfx.Assets;
 
