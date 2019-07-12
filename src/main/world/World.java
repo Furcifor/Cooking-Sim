@@ -52,8 +52,8 @@ public class World {
 		String[] tokens = file.split("\\s+");
 		width = Utilities.parseInt(tokens[0]);
 		height = Utilities.parseInt(tokens[1]);
-		spawnX = Utilities.parseInt(tokens[2]);
-		spawnY = Utilities.parseInt(tokens[3]);
+		spawnX = Utilities.parseInt(tokens[2]) * Tile.TILE_HEIGHT;
+		spawnY = Utilities.parseInt(tokens[3]) * Tile.TILE_HEIGHT;
 
 		tiles = new int[width][height];
 		for (int y = 0; y < height; y++) {
@@ -70,6 +70,15 @@ public class World {
 	public int getHeight() {
 		return height;
 	}
+
+	public int getSpawnX() {
+		return spawnX;
+	}
+
+	public int getSpawnY() {
+		return spawnY;
+	}
+	
 	
 	
 	
