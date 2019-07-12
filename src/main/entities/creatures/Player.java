@@ -12,10 +12,6 @@ public class Player extends Creature{
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEAFULT_CREATURE_HEIGHT);
 	
-		bounds.x = 0;
-		bounds.y = 0;
-		bounds.width = 32;
-		bounds.height = 32;
 	}
 
 	@Override

@@ -1,27 +1,49 @@
 package main.gfx;
 
-import main.Game;
+import main.Handler;
 import main.entities.Entity;
+import main.tiles.Tile;
 
 public class GameCamera {
 	
-	private Game game;
+	private Handler handler;
 	private float xOffset, yOffset;
 
-	public GameCamera(Game game, float xOffset, float yOffset) {
-		this.game = game;
+	public GameCamera(Handler handler, float xOffset, float yOffset) {
+		this.handler = handler;
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 	}
 	
+	public void checkBlankSpace() {
+		
+		
+		// variables stored here to improve readability
+		int x = handler.getWorld().getWidth() * Tile.TILE_WIDTH - handler.getWidth();
+		int y = handler.getWorld().getHeight() * Tile.TILE_HEIGHT - handler.getHeight();
+		
+		if (xOffset < 0) {
+			xOffset = 0;
+		} else if (xOffset > x){
+			xOffset = x;
+		}
+		if (yOffset < 0) {
+			yOffset = 0;
+		} else if (yOffset > y){
+			yOffset = y;
+		}
+	}
+	
 	public void centerOnEntity(Entity e) {
-		xOffset = e.getX() - game.getWidth() / 2 + e.getWidth() / 2;
-		yOffset = e.getY() - game.getHeight() / 2 + e.getHeight() / 2;;
+		xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
+		yOffset = e.getY() - handler.getHeight() / 2 + e.getHeight() / 2;;
+		checkBlankSpace();
 	}
 	
 	public void move(float xAmount, float yAmount) {
 		xOffset += xAmount;
 		yOffset += yAmount;
+		checkBlankSpace();
 	}
 
 	public float getxOffset() {
